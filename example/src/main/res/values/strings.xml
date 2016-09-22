@@ -14,4 +14,9 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="show_bounds">Show bounds</string>
     <string name="show_offsets">Show offsets</string>
+    <string name="click_to_view">Click to view comments</string>
+    <string name="more_articles">More articles</string>
+    <string name="by_lisa_and"><![CDATA[By Lisa Wray & 1 more]]></string>
+    <string name="recycling">An article</string>
+    <string name="view_comments">View comments</string>
 </resources>

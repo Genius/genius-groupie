@@ -15,7 +15,7 @@ public class FullBleedCardItem extends CardItem {
     }
 
     @Override public void bind(ItemCardBinding viewBinding, int position) {
-        viewBinding.getRoot().setBackgroundResource(getColorRes());
+//        viewBinding.getRoot().setBackgroundResource(getColorRes());
         super.bind(viewBinding, position);
     }
 

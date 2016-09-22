@@ -27,10 +27,8 @@ import com.genius.groupie.example.item.CardItem;
 import com.genius.groupie.example.item.CarouselCardItem;
 import com.genius.groupie.example.item.CarouselItem;
 import com.genius.groupie.example.item.ColumnItem;
-import com.genius.groupie.example.item.FullBleedCardItem;
 import com.genius.groupie.example.item.HeaderItem;
-import com.genius.groupie.example.item.SmallCardItem;
-import com.genius.groupie.example.item.SwipeToDeleteItem;
+import com.genius.groupie.example.item.TitleItem;
 import com.genius.groupie.example.item.UpdatableItem;
 
 import java.util.ArrayList;
@@ -88,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.addOnScrollListener(new InfiniteScrollListener(layoutManager) {
             @Override public void onLoadMore(int current_page) {
                 for (int i = 0; i < 5; i++) {
-                    infiniteLoadingSection.add(new CardItem(R.color.blue_200));
+                    infiniteLoadingSection.add(new CardItem(R.color.white));
                 }
             }
         });
@@ -107,10 +105,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void populateAdapter() {
 
-        // Full bleed item
-        Section fullBleedItemSection = new Section(new HeaderItem(R.string.full_bleed_item));
-        fullBleedItemSection.add(new FullBleedCardItem(R.color.purple_200));
-        groupAdapter.add(fullBleedItemSection);
+        TitleItem titleItem = new TitleItem(R.string.recycling);
+        groupAdapter.add(titleItem);
+
 
         // Update in place group
         Section updatingSection = new Section();
@@ -141,44 +138,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         updatingGroup.update(updatableItems);
         updatingSection.add(updatingGroup);
-        groupAdapter.add(updatingSection);
+//        groupAdapter.add(updatingSection);
 
         // Expandable group
-        ExpandableHeaderItem expandableHeaderItem = new ExpandableHeaderItem(R.string.expanding_group, R.string.expanding_group_subtitle);
+        ExpandableHeaderItem expandableHeaderItem = new ExpandableHeaderItem(R.string.by_lisa_and, R.string.expanding_group_subtitle);
         ExpandableGroup expandableGroup = new ExpandableGroup(expandableHeaderItem);
-        for (int i = 0; i < 2; i++) {
-            expandableGroup.add(new CardItem(R.color.red_200));
-        }
+//        for (int i = 0; i < 2; i++) {
+            expandableGroup.add(new CardItem(R.color.red_200, "Lisa Wray"));
+        expandableGroup.add(new CardItem(R.color.red_200, "John Doe"));
+
+        //        }
         groupAdapter.add(expandableGroup);
 
-        // Columns
-        Section columnSection = new Section(new HeaderItem(R.string.vertical_columns));
-        ColumnGroup columnGroup = makeColumnGroup();
-        columnSection.add(columnGroup);
-        groupAdapter.add(columnSection);
+        // Expandable group
+        ExpandableHeaderItem expandableHeaderItem2 = new ExpandableHeaderItem(R.string.view_comments, R.string.expanding_group_subtitle);
+        ExpandableGroup expandableGroup2 = new ExpandableGroup(expandableHeaderItem2);
+        //        for (int i = 0; i < 2; i++) {
+        expandableGroup2.add(new CardItem(R.color.deep_orange_200, "Love it! \uD83D\uDCAF"));
+        expandableGroup2.add(new CardItem(R.color.deep_orange_200, "Lame. \uD83D\uDCA9"));
+        groupAdapter.add(expandableGroup2);
 
-        // Group showing even spacing with multiple columns
-        Section multipleColumnsSection = new Section(new HeaderItem(R.string.multiple_columns));
-        for (int i = 0; i < 12; i++) {
-            multipleColumnsSection.add(new SmallCardItem(R.color.indigo_200));
-        }
-        groupAdapter.add(multipleColumnsSection);
+//        // Full bleed item
+//        Section fullBleedItemSection = new Section(new HeaderItem(R.string.click_to_view));
+//        fullBleedItemSection.add(new FullBleedCardItem(R.color.red_200));
+//        groupAdapter.add(fullBleedItemSection);
 
-        // Swipe to delete (with add button in header)
-        swipeSection = new Section(new HeaderItem(R.string.swipe_to_delete));
-        for (int i = 0; i < 3; i++) {
-            swipeSection.add(new SwipeToDeleteItem(R.color.blue_200));
-        }
-        groupAdapter.add(swipeSection);
-
-        // Horizontal carousel
-        Section carouselSection = new Section(new HeaderItem(R.string.carousel, R.string.carousel_subtitle));
-        CarouselItem carouselItem = makeCarouselItem();
-        carouselSection.add(carouselItem);
-        groupAdapter.add(carouselSection);
+//        // Columns
+//        Section columnSection = new Section(new HeaderItem(R.string.vertical_columns));
+//        ColumnGroup columnGroup = makeColumnGroup();
+//        columnSection.add(columnGroup);
+//        groupAdapter.add(columnSection);
+//
+//        // Group showing even spacing with multiple columns
+//        Section multipleColumnsSection = new Section(new HeaderItem(R.string.multiple_columns));
+//        for (int i = 0; i < 12; i++) {
+//            multipleColumnsSection.add(new SmallCardItem(R.color.indigo_200));
+//        }
+//        groupAdapter.add(multipleColumnsSection);
+//
+//        // Swipe to delete (with add button in header)
+//        swipeSection = new Section(new HeaderItem(R.string.swipe_to_delete));
+//        for (int i = 0; i < 3; i++) {
+//            swipeSection.add(new SwipeToDeleteItem(R.color.blue_200));
+//        }
+//        groupAdapter.add(swipeSection);
+//
+//        // Horizontal carousel
+//        Section carouselSection = new Section(new HeaderItem(R.string.carousel, R.string.carousel_subtitle));
+//        CarouselItem carouselItem = makeCarouselItem();
+//        carouselSection.add(carouselItem);
+//        groupAdapter.add(carouselSection);
 
         // Infinite loading section
-        infiniteLoadingSection = new Section(new HeaderItem(R.string.infinite_loading));
+        infiniteLoadingSection = new Section(new HeaderItem(R.string.more_articles));
         groupAdapter.add(infiniteLoadingSection);
 
 
