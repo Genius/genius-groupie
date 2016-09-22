@@ -2,8 +2,8 @@
 <layout xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:layout_width="?android:attr/listPreferredItemHeightLarge"
-                 android:layout_height="?android:attr/listPreferredItemHeightLarge"
+                 android:layout_width="100dp"
+                 android:layout_height="100dp"
                  android:background="@color/white"
                  android:elevation="2dp"
                  android:foreground="?android:attr/selectableItemBackground"

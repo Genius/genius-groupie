@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private int gray;
     private int betweenPadding;
+    private int[] rainbow;
 
     private Section infiniteLoadingSection;
     private Section swipeSection;
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         gray = ContextCompat.getColor(this, R.color.background);
         betweenPadding = getResources().getDimensionPixelSize(R.dimen.padding_small);
+        rainbow = getResources().getIntArray(R.array.rainbow);
+
 
         groupAdapter = new GroupAdapter(this);
         groupAdapter.setSpanCount(12);
@@ -134,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         updatingGroup = new UpdatingGroup<>();
         updatableItems = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
-            updatableItems.add(new UpdatableItem(R.color.blue_200, i));
+            updatableItems.add(new UpdatableItem(rainbow[i], i));
         }
         updatingGroup.update(updatableItems);
         updatingSection.add(updatingGroup);
