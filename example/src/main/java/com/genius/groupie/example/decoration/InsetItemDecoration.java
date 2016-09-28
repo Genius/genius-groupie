@@ -43,6 +43,8 @@ public class InsetItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+        outRect.bottom = padding;
+
         if (!isInset(view, parent)) return;
 
         GridLayoutManager.LayoutParams layoutParams = (GridLayoutManager.LayoutParams) view.getLayoutParams();
@@ -67,7 +69,7 @@ public class InsetItemDecoration extends RecyclerView.ItemDecoration {
         int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View child = parent.getChildAt(i);
-            if (!isInset(child, parent)) continue;
+//            if (!isInset(child, parent)) continue;
 
             //
             if (child.getTranslationX() != 0 || child.getTranslationY() != 0) {

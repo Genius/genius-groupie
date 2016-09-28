@@ -22,9 +22,9 @@ public class DebugItemDecoration extends RecyclerView.ItemDecoration {
     public DebugItemDecoration(Context context) {
         prefs = Prefs.get(context);
         leftColor = ContextCompat.getColor(context, R.color.red_200);
-        topColor = ContextCompat.getColor(context, R.color.pink_200);
-        rightColor = ContextCompat.getColor(context, R.color.purple_200);
-        bottomColor = ContextCompat.getColor(context, R.color.indigo_200);
+        topColor = ContextCompat.getColor(context, R.color.yellow_200);
+        rightColor = ContextCompat.getColor(context, R.color.indigo_200);
+        bottomColor = ContextCompat.getColor(context, R.color.green_200);
     }
 
     @Override public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {

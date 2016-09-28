@@ -43,5 +43,7 @@
     </array>
 
     <color name="gray">#eeeeeeee</color>
+    <color name="gray2">#ccc</color>
+
     <color name="transparent">#00000000</color>
 </resources>

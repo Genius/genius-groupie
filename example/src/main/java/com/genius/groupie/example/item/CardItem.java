@@ -30,7 +30,7 @@ public class CardItem extends Item<ItemCardBinding> {
     }
 
     @Override public void bind(ItemCardBinding viewBinding, int position) {
-        //viewBinding.getRoot().setBackgroundResource(colorRes);
+        viewBinding.getRoot().setBackgroundColor(colorRes);
         viewBinding.text.setText(text);
     }
 
