@@ -67,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         prefs = Prefs.get(this);
 
-        gray = ContextCompat.getColor(this, R.color.background);
+        gray = ContextCompat.getColor(this, R.color.blue_200);
+
         betweenPadding = getResources().getDimensionPixelSize(R.dimen.padding_small);
 
         groupAdapter = new GroupAdapter(this);
@@ -78,8 +79,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         final RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new HeaderItemDecoration(gray, betweenPadding));
-        recyclerView.addItemDecoration(new InsetItemDecoration(gray, betweenPadding));
+        recyclerView.addItemDecoration(new HeaderItemDecoration(gray, 4 * betweenPadding));
+        recyclerView.addItemDecoration(new InsetItemDecoration(gray, 4 * betweenPadding));
         recyclerView.addItemDecoration(new DebugItemDecoration(this));
         recyclerView.setAdapter(groupAdapter);
         recyclerView.addOnScrollListener(new InfiniteScrollListener(layoutManager) {

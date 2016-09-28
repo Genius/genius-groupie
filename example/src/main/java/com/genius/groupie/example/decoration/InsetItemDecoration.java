@@ -62,57 +62,57 @@ public class InsetItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        RecyclerView.LayoutManager lm = parent.getLayoutManager();
-
-        int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View child = parent.getChildAt(i);
-            if (!isInset(child, parent)) continue;
-
-            //
-            if (child.getTranslationX() != 0 || child.getTranslationY() != 0) {
-                c.drawRect(
-                        lm.getDecoratedLeft(child),
-                        lm.getDecoratedTop(child),
-                        lm.getDecoratedRight(child),
-                        lm.getDecoratedBottom(child),
-                        paint
-                );
-                continue;
-            }
-
-            boolean isLast = i == childCount - 1;
-            float top = child.getTop() + child.getTranslationY();
-            float bottom = child.getBottom() + child.getTranslationY();
-
-            // Left border
-            c.drawRect(
-                    lm.getDecoratedLeft(child) + child.getTranslationX(),
-                    top,
-                    child.getLeft() + child.getTranslationX(),
-                    bottom,
-                    paint);
-
-            float right = lm.getDecoratedRight(child) + child.getTranslationX();
-            if (isLast) {
-                right = Math.max(right, parent.getWidth());
-            }
-
-            // Right border
-            c.drawRect(
-                    child.getRight() + child.getTranslationX(),
-                    top,
-                    right,
-                    bottom,
-                    paint);
-
-            // Bottom border
-            c.drawRect(
-                    lm.getDecoratedLeft(child) + child.getTranslationY(),
-                    bottom,
-                    right,
-                    lm.getDecoratedBottom(child) + child.getTranslationY(),
-                    paint);
-        }
+//        RecyclerView.LayoutManager lm = parent.getLayoutManager();
+//
+//        int childCount = parent.getChildCount();
+//        for (int i = 0; i < childCount; i++) {
+//            View child = parent.getChildAt(i);
+//            if (!isInset(child, parent)) continue;
+//
+//            //
+//            if (child.getTranslationX() != 0 || child.getTranslationY() != 0) {
+//                c.drawRect(
+//                        lm.getDecoratedLeft(child),
+//                        lm.getDecoratedTop(child),
+//                        lm.getDecoratedRight(child),
+//                        lm.getDecoratedBottom(child),
+//                        paint
+//                );
+//                continue;
+//            }
+//
+//            boolean isLast = i == childCount - 1;
+//            float top = child.getTop() + child.getTranslationY();
+//            float bottom = child.getBottom() + child.getTranslationY();
+//
+//            // Left border
+//            c.drawRect(
+//                    lm.getDecoratedLeft(child) + child.getTranslationX(),
+//                    top,
+//                    child.getLeft() + child.getTranslationX(),
+//                    bottom,
+//                    paint);
+//
+//            float right = lm.getDecoratedRight(child) + child.getTranslationX();
+//            if (isLast) {
+//                right = Math.max(right, parent.getWidth());
+//            }
+//
+//            // Right border
+//            c.drawRect(
+//                    child.getRight() + child.getTranslationX(),
+//                    top,
+//                    right,
+//                    bottom,
+//                    paint);
+//
+//            // Bottom border
+//            c.drawRect(
+//                    lm.getDecoratedLeft(child) + child.getTranslationY(),
+//                    bottom,
+//                    right,
+//                    lm.getDecoratedBottom(child) + child.getTranslationY(),
+//                    paint);
+//        }
     }
 }

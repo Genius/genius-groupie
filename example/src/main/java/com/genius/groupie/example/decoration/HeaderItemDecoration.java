@@ -37,16 +37,10 @@ public class HeaderItemDecoration extends RecyclerView.ItemDecoration {
             View child = parent.getChildAt(i);
             if (!isHeader(child, parent)) continue;
 
-            RecyclerView.LayoutManager lm = parent.getLayoutManager();
-
-            float top = lm.getDecoratedTop(child) + child.getTranslationY();
-            float bottom = lm.getDecoratedBottom(child) + child.getTranslationY();
-            if (i == parent.getChildCount() - 1) {
-                // Draw to bottom if last item
-                bottom = Math.max(parent.getHeight(), bottom);
-            }
-            float right = lm.getDecoratedRight(child) + child.getTranslationX();
-            float left = lm.getDecoratedLeft(child) + child.getTranslationX();
+            float top = child.getTop();
+            float bottom = child.getBottom();
+            float right = child.getRight();
+            float left = child.getLeft();
             c.drawRect(left, top, right, bottom, paint);
         }
     }
