@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Gravity;
 import android.view.View;
 
 import com.genius.groupie.GroupAdapter;
@@ -24,6 +25,7 @@ import com.genius.groupie.example.decoration.InsetItemDecoration;
 import com.genius.groupie.example.decoration.SwipeTouchCallback;
 import com.genius.groupie.example.item.CardItem;
 import com.genius.groupie.example.item.CarouselCardItem;
+import com.genius.groupie.example.item.CarouselCardItemFullSpan;
 import com.genius.groupie.example.item.CarouselItem;
 import com.genius.groupie.example.item.ColumnItem;
 import com.genius.groupie.example.item.UpdatableItem;
@@ -179,15 +181,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        groupAdapter.add(swipeSection);
 //
 //        // Horizontal carousel
-//        Section carouselSection = new Section(new HeaderItem(R.string.carousel, R.string.carousel_subtitle));
 
         for (int i = 0; i < 2; i++) {
             CardItem cardItem = new CardItem(R.color.white);
             groupAdapter.add(cardItem);
         }
 
-        CarouselItem carouselItem = makeCarouselItem();
+//        CarouselItem carouselItem = makeCarouselItem(Gravity.NO_GRAVITY);
+//        groupAdapter.add(carouselItem);
+//
+//        CarouselItem start = makeCarouselItem(Gravity.START);
+//        groupAdapter.add(start);
+
+        CarouselItem carouselItem = makeViewpagerItem();
         groupAdapter.add(carouselItem);
+
+//        CarouselItem center = makeCarouselItem(Gravity.CENTER);
+//        groupAdapter.add(center);
 
         for (int i = 0; i < 15; i++) {
             CardItem cardItem = new CardItem(R.color.white);
@@ -221,13 +231,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return new ColumnGroup(columnItems);
     }
 
-    private CarouselItem makeCarouselItem() {
+    private CarouselItem makeCarouselItem(int snapGravity) {
         CarouselItemDecoration carouselDecoration = new CarouselItemDecoration(gray, betweenPadding);
         GroupAdapter carouselAdapter = new GroupAdapter(this);
         for (int i = 0; i < 16; i++) {
             carouselAdapter.add(new CarouselCardItem(rainbow[i]));
         }
-        CarouselItem carouselItem = new CarouselItem(carouselDecoration);
+        CarouselItem carouselItem = new CarouselItem(carouselDecoration, snapGravity);
+        carouselItem.setAdapter(carouselAdapter);
+        return carouselItem;
+    }
+
+    private CarouselItem makeViewpagerItem() {
+        CarouselItemDecoration carouselDecoration = new CarouselItemDecoration(gray, betweenPadding * 2);
+        GroupAdapter carouselAdapter = new GroupAdapter(this);
+        for (int i = 0; i < 16; i++) {
+            carouselAdapter.add(new CarouselCardItemFullSpan(rainbow[i]));
+        }
+        CarouselItem carouselItem = new CarouselItem(carouselDecoration, Gravity.CENTER);
         carouselItem.setAdapter(carouselAdapter);
         return carouselItem;
     }

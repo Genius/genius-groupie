@@ -2,6 +2,7 @@
     <string name="app_name">Groupie</string>
     <string name="expanding_group">Expanding group</string>
     <string name="carousel">Carousel</string>
+    <string name="carousel_snap_start">Carousel, snap Gravity.START</string>
     <string name="vertical_columns">Vertical columns</string>
     <string name="full_bleed_item">A full bleed item</string>
     <string name="multiple_columns">Multiple columns with even spacing</string>
