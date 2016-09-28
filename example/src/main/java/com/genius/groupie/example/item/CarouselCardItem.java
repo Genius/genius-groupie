@@ -21,6 +21,6 @@ public class CarouselCardItem extends Item<ItemSquareCardBinding> {
     }
 
     @Override public void bind(ItemSquareCardBinding viewBinding, int position) {
-        //viewBinding.getRoot().setBackgroundResource(colorRes);
+        viewBinding.getRoot().setBackgroundColor(colorRes);
     }
 }

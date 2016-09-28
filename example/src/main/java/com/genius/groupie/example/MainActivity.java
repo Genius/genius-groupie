@@ -22,10 +22,10 @@ import com.genius.groupie.example.decoration.DebugItemDecoration;
 import com.genius.groupie.example.decoration.HeaderItemDecoration;
 import com.genius.groupie.example.decoration.InsetItemDecoration;
 import com.genius.groupie.example.decoration.SwipeTouchCallback;
+import com.genius.groupie.example.item.CardItem;
 import com.genius.groupie.example.item.CarouselCardItem;
 import com.genius.groupie.example.item.CarouselItem;
 import com.genius.groupie.example.item.ColumnItem;
-import com.genius.groupie.example.item.SwipeToDeleteItem;
 import com.genius.groupie.example.item.UpdatableItem;
 
 import java.util.ArrayList;
@@ -172,17 +172,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        groupAdapter.add(multipleColumnsSection);
 
         // Swipe to delete (with add button in header)
-        swipeSection = new Section();//new HeaderItem(R.string.swipe_to_delete));
-        for (int i = 0; i < 16; i++) {
-            swipeSection.add(new SwipeToDeleteItem(rainbow[i]));
-        }
-        groupAdapter.add(swipeSection);
+//        swipeSection = new Section();//new HeaderItem(R.string.swipe_to_delete));
+//        for (int i = 0; i < 16; i++) {
+//            swipeSection.add(new SwipeToDeleteItem(rainbow[i]));
+//        }
+//        groupAdapter.add(swipeSection);
 //
 //        // Horizontal carousel
 //        Section carouselSection = new Section(new HeaderItem(R.string.carousel, R.string.carousel_subtitle));
-//        CarouselItem carouselItem = makeCarouselItem();
-//        carouselSection.add(carouselItem);
-//        groupAdapter.add(carouselSection);
+
+        for (int i = 0; i < 2; i++) {
+            CardItem cardItem = new CardItem(R.color.white);
+            groupAdapter.add(cardItem);
+        }
+
+        CarouselItem carouselItem = makeCarouselItem();
+        groupAdapter.add(carouselItem);
+
+        for (int i = 0; i < 15; i++) {
+            CardItem cardItem = new CardItem(R.color.white);
+            groupAdapter.add(cardItem);
+        }
 //
 //        // Infinite loading section
 //        infiniteLoadingSection = new Section(new HeaderItem(R.string.infinite_loading));
@@ -214,8 +224,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CarouselItem makeCarouselItem() {
         CarouselItemDecoration carouselDecoration = new CarouselItemDecoration(gray, betweenPadding);
         GroupAdapter carouselAdapter = new GroupAdapter(this);
-        for (int i = 0; i < 30; i++) {
-            carouselAdapter.add(new CarouselCardItem(R.color.deep_purple_200));
+        for (int i = 0; i < 16; i++) {
+            carouselAdapter.add(new CarouselCardItem(rainbow[i]));
         }
         CarouselItem carouselItem = new CarouselItem(carouselDecoration);
         carouselItem.setAdapter(carouselAdapter);
