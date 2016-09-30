@@ -10,13 +10,13 @@ public class UpdatableItem extends SmallCardItem implements UpdatingGroup.Compar
     private final int index;
 
     public UpdatableItem(@ColorRes int colorRes, int index) {
-        super(colorRes, String.valueOf(index));
+        super(colorRes);
         this.index = index;
     }
 
     @Override public void bind(ItemCardBinding viewBinding, int position) {
         super.bind(viewBinding, position);
-//        viewBinding.getRoot().setBackgroundColor(getColorRes());
+        viewBinding.getRoot().setBackgroundColor(getColorRes());
     }
 
     public int getIndex() {

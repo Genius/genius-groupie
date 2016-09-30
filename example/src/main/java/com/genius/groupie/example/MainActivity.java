@@ -1,6 +1,5 @@
 package com.genius.groupie.example;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
-import com.genius.groupie.ExpandableGroup;
 import com.genius.groupie.GroupAdapter;
 import com.genius.groupie.Item;
 import com.genius.groupie.Section;
@@ -23,14 +21,9 @@ import com.genius.groupie.example.decoration.DebugItemDecoration;
 import com.genius.groupie.example.decoration.HeaderItemDecoration;
 import com.genius.groupie.example.decoration.InsetItemDecoration;
 import com.genius.groupie.example.decoration.SwipeTouchCallback;
-import com.genius.groupie.example.item.CardItem;
 import com.genius.groupie.example.item.CarouselCardItem;
 import com.genius.groupie.example.item.CarouselItem;
 import com.genius.groupie.example.item.ColumnItem;
-import com.genius.groupie.example.item.FullBleedCardItem;
-import com.genius.groupie.example.item.HeaderItem;
-import com.genius.groupie.example.item.SmallCardItem;
-import com.genius.groupie.example.item.SwipeToDeleteItem;
 import com.genius.groupie.example.item.UpdatableItem;
 
 import java.util.ArrayList;
@@ -85,101 +78,100 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.addItemDecoration(new InsetItemDecoration(gray, betweenPadding));
         recyclerView.addItemDecoration(new DebugItemDecoration(this));
         recyclerView.setAdapter(groupAdapter);
-        recyclerView.addOnScrollListener(new InfiniteScrollListener(layoutManager) {
-            @Override public void onLoadMore(int current_page) {
-                for (int i = 0; i < 5; i++) {
-                    infiniteLoadingSection.add(new CardItem(R.color.blue_200));
-                }
-            }
-        });
+//        recyclerView.addOnScrollListener(new InfiniteScrollListener(layoutManager) {
+//            @Override public void onLoadMore(int current_page) {
+//                for (int i = 0; i < 5; i++) {
+//                    infiniteLoadingSection.add(new CardItem(R.color.blue_200));
+//                }
+//            }
+//        });
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(touchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-            }
-        });
+        binding.fab.setOnClickListener(onShuffleClicked);
 
         prefs.registerListener(onSharedPrefChangeListener);
     }
 
+    View.OnClickListener onShuffleClicked = new View.OnClickListener() {
+        @Override public void onClick(View view) {
+            List<UpdatableItem> shuffled = new ArrayList<>(updatableItems);
+            Collections.shuffle(shuffled);
+            updatingGroup.update(shuffled);
+
+            // You can also do this by forcing a change with payload
+            binding.recyclerView.post(new Runnable() {
+                @Override public void run() {
+                    binding.recyclerView.invalidateItemDecorations();
+                }
+            });
+        }
+    };
+
     private void populateAdapter() {
 
         // Full bleed item
-        Section fullBleedItemSection = new Section(new HeaderItem(R.string.full_bleed_item));
-        fullBleedItemSection.add(new FullBleedCardItem(R.color.purple_200));
-        groupAdapter.add(fullBleedItemSection);
+//        Section fullBleedItemSection = new Section(new HeaderItem(R.string.full_bleed_item));
+//        fullBleedItemSection.add(new FullBleedCardItem(R.color.purple_200));
+//        groupAdapter.add(fullBleedItemSection);
 
         // Update in place group
         Section updatingSection = new Section();
-        View.OnClickListener onShuffleClicked = new View.OnClickListener() {
-            @Override public void onClick(View view) {
-                List<UpdatableItem> shuffled = new ArrayList<>(updatableItems);
-                Collections.shuffle(shuffled);
-                updatingGroup.update(shuffled);
 
-                // You can also do this by forcing a change with payload
-                binding.recyclerView.post(new Runnable() {
-                    @Override public void run() {
-                        binding.recyclerView.invalidateItemDecorations();
-                    }
-                });
-            }
-        };
-        HeaderItem updatingHeader = new HeaderItem(
-                R.string.updating_group,
-                R.string.updating_group_subtitle,
-                R.drawable.shuffle,
-                onShuffleClicked);
-        updatingSection.setHeader(updatingHeader);
+//        HeaderItem updatingHeader = new HeaderItem(
+//                R.string.updating_group,
+//                R.string.updating_group_subtitle,
+//                R.drawable.shuffle,
+//                onShuffleClicked);
+//        updatingSection.setHeader(updatingHeader);
         updatingGroup = new UpdatingGroup<>();
         updatableItems = new ArrayList<>();
-        for (int i = 1; i <= 12; i++) {
+        for (int i = 0; i < 15; i++) {
             updatableItems.add(new UpdatableItem(rainbow[i], i));
         }
         updatingGroup.update(updatableItems);
         updatingSection.add(updatingGroup);
         groupAdapter.add(updatingSection);
 
-        // Expandable group
-        ExpandableHeaderItem expandableHeaderItem = new ExpandableHeaderItem(R.string.expanding_group, R.string.expanding_group_subtitle);
-        ExpandableGroup expandableGroup = new ExpandableGroup(expandableHeaderItem);
-        for (int i = 0; i < 2; i++) {
-            expandableGroup.add(new CardItem(R.color.red_200));
-        }
-        groupAdapter.add(expandableGroup);
 
-        // Columns
-        Section columnSection = new Section(new HeaderItem(R.string.vertical_columns));
-        ColumnGroup columnGroup = makeColumnGroup();
-        columnSection.add(columnGroup);
-        groupAdapter.add(columnSection);
-
-        // Group showing even spacing with multiple columns
-        Section multipleColumnsSection = new Section(new HeaderItem(R.string.multiple_columns));
-        for (int i = 0; i < 12; i++) {
-            multipleColumnsSection.add(new SmallCardItem(R.color.indigo_200));
-        }
-        groupAdapter.add(multipleColumnsSection);
-
-        // Swipe to delete (with add button in header)
-        swipeSection = new Section(new HeaderItem(R.string.swipe_to_delete));
-        for (int i = 0; i < 3; i++) {
-            swipeSection.add(new SwipeToDeleteItem(R.color.blue_200));
-        }
-        groupAdapter.add(swipeSection);
-
-        // Horizontal carousel
-        Section carouselSection = new Section(new HeaderItem(R.string.carousel, R.string.carousel_subtitle));
-        CarouselItem carouselItem = makeCarouselItem();
-        carouselSection.add(carouselItem);
-        groupAdapter.add(carouselSection);
-
-        // Infinite loading section
-        infiniteLoadingSection = new Section(new HeaderItem(R.string.infinite_loading));
-        groupAdapter.add(infiniteLoadingSection);
+//        // Expandable group
+//        ExpandableHeaderItem expandableHeaderItem = new ExpandableHeaderItem(R.string.expanding_group, R.string.expanding_group_subtitle);
+//        ExpandableGroup expandableGroup = new ExpandableGroup(expandableHeaderItem);
+//        for (int i = 0; i < 2; i++) {
+//            expandableGroup.add(new CardItem(R.color.red_200));
+//        }
+//        groupAdapter.add(expandableGroup);
+//
+//        // Columns
+//        Section columnSection = new Section(new HeaderItem(R.string.vertical_columns));
+//        ColumnGroup columnGroup = makeColumnGroup();
+//        columnSection.add(columnGroup);
+//        groupAdapter.add(columnSection);
+//
+//        // Group showing even spacing with multiple columns
+//        Section multipleColumnsSection = new Section(new HeaderItem(R.string.multiple_columns));
+//        for (int i = 0; i < 12; i++) {
+//            multipleColumnsSection.add(new SmallCardItem(R.color.indigo_200));
+//        }
+//        groupAdapter.add(multipleColumnsSection);
+//
+//        // Swipe to delete (with add button in header)
+//        swipeSection = new Section(new HeaderItem(R.string.swipe_to_delete));
+//        for (int i = 0; i < 3; i++) {
+//            swipeSection.add(new SwipeToDeleteItem(R.color.blue_200));
+//        }
+//        groupAdapter.add(swipeSection);
+//
+//        // Horizontal carousel
+//        Section carouselSection = new Section(new HeaderItem(R.string.carousel, R.string.carousel_subtitle));
+//        CarouselItem carouselItem = makeCarouselItem();
+//        carouselSection.add(carouselItem);
+//        groupAdapter.add(carouselSection);
+//
+//        // Infinite loading section
+//        infiniteLoadingSection = new Section(new HeaderItem(R.string.infinite_loading));
+//        groupAdapter.add(infiniteLoadingSection);
 
 
 

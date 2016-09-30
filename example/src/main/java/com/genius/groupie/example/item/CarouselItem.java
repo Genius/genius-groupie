@@ -20,10 +20,14 @@ public class CarouselItem extends Item<ItemCarouselBinding> {
         this.carouselDecoration = itemDecoration;
     }
 
+
+
     @Override public void bind(ItemCarouselBinding viewBinding, int position) {
         recyclerView = viewBinding.recyclerView;
         layoutManager = new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(carouselDecoration);
+
         recyclerView.setAdapter(adapter);
 
         // We don't know if the layout we're passed has been bound before so
